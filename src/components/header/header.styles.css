@@ -5,11 +5,22 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background-color: black;
+    color: white;
+}
+
+.header a {
+    color: white;
 }
 
 .header-logo {
     width: 64px;
     height: 64px;
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 .header-options {

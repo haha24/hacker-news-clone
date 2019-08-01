@@ -8,7 +8,7 @@ import './header.styles.css';
 const Header = (props) => (
     <div className="header">
         <Link to="/">
-            <Logo  className="header-logo"/>
+            <span className="header-logo">Y</span>
         </Link>
         <div className="header-options">
             <Link>SIGN IN</Link>

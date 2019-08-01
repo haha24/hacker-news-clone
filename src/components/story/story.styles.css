@@ -1,0 +1,30 @@
+.story {
+    display: grid;
+    grid-template-columns: 32px auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "story-rank story-title" 
+        "story-rank story-extras";
+    padding: 8px;
+}
+
+.story-rank {
+    grid-area: story-rank;
+    padding: 0 8px;
+}
+
+.story-title { 
+    grid-area: story-title;
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.story-extras {
+    grid-area: story-extras;
+    font-size: 0.8rem;
+}
+
+.story-extra {
+    margin: 0 4px;
+}
