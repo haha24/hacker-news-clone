@@ -2,7 +2,7 @@ import React from 'react';
 
 import './story.styles.css';
 
-const Story = ({ title, rank, score, kids, by: author }) => (
+const Story = ({ title, rank, score, kids = [], by: author }) => (
     <div className="story">
         <div className="story-rank">{rank}.</div>
         <h2 className="story-title">{title}</h2>
