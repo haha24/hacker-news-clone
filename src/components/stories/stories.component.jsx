@@ -4,11 +4,11 @@ import Story from '../story';
 
 import './stories.styles.css';
 
-const Stories = ({ stories }) => (
+const Stories = ({ stories, startIndex = 1 }) => (
     <div>
         {
             stories.map((({ id, ...otherProps }, idx) => (
-                <Story key={id} rank={idx + 1} {...otherProps} />
+                <Story key={id} rank={startIndex + idx + 1} {...otherProps} />
             )))
         }
     </div>

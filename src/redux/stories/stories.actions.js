@@ -8,7 +8,7 @@ export const fetchStories = (type = 'topstories', page = 1, size = 10) => {
             const response = await axios.get(`https://hacker-news.firebaseio.com/v0/${type}.json`);
             const data = response.data;
             if (page * size >= data.length) {
-                page = Math.floor(data.length / size);
+                page = Math.ceil(data.length / size);
             }
 
             const start = (page - 1) * size;
@@ -21,8 +21,9 @@ export const fetchStories = (type = 'topstories', page = 1, size = 10) => {
 
             const itemResponses = await axios.all(itemRequests);
             const storiesData = itemResponses.map(itemResponse => itemResponse.data);
-
-            dispatch(fetchStoriesResult(storiesData, page, size));
+            const totalPages = Math.ceil(data.length / size);
+            
+            dispatch(fetchStoriesResult(storiesData, page, size, totalPages));
         }
         catch (error) {
             console.log(error);
@@ -39,11 +40,12 @@ const fetchStoriesError = () => ({
     type: storiesTypes.FETCH_STORIES_ERROR,
 });
 
-const fetchStoriesResult = (data, page, size) => ({
+const fetchStoriesResult = (data, page, size, totalPages) => ({
     type: storiesTypes.FETCH_STORIES_RESULT,
     payload: {
         data,
         page,
         size,
+        totalPages,
     }
 });

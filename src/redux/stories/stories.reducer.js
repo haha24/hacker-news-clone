@@ -4,6 +4,8 @@ const INITIAL_STATE = {
     stories: [],
     page: 1,
     size: 10,
+    totalPages: 0,
+    loading: false,
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -22,11 +24,13 @@ const reducer = (state = INITIAL_STATE, action) => {
 const fetchStoriesStart = (state, action) => ({
     ...state,
     stories: [],
+    loading: true,
 });
 
 const fetchStoriesError = (state, action) => ({
     ...state,
     stories: [],
+    loading: false,
 });
 
 const fetchStoriesResult = (state, action) => ({
@@ -34,6 +38,8 @@ const fetchStoriesResult = (state, action) => ({
     stories: action.payload.data,
     page: action.payload.page,
     size: action.payload.size,
+    totalPages: action.payload.totalPages,
+    loading: false,
 });
 
 export default reducer;
