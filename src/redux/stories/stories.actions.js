@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const fetchStories = (type = 'topstories', page = 1, size = 10) => {
     return async dispatch => {
-        dispatch(fetchStoriesStart());
+        dispatch(fetchStoriesStart(page, type));
         try {
             const response = await axios.get(`https://hacker-news.firebaseio.com/v0/${type}.json`);
             const data = response.data;
@@ -23,7 +23,7 @@ export const fetchStories = (type = 'topstories', page = 1, size = 10) => {
             const storiesData = itemResponses.map(itemResponse => itemResponse.data);
             const totalPages = Math.ceil(data.length / size);
             
-            dispatch(fetchStoriesResult(storiesData, page, size, totalPages));
+            dispatch(fetchStoriesResult(storiesData, page, size, totalPages, type));
         }
         catch (error) {
             console.log(error);
@@ -32,20 +32,25 @@ export const fetchStories = (type = 'topstories', page = 1, size = 10) => {
     }
 }
 
-const fetchStoriesStart = () => ({
+const fetchStoriesStart = (page, type) => ({
     type: storiesTypes.FETCH_STORIES_START,
+    payload: {
+        page,
+        type
+    }
 });
 
 const fetchStoriesError = () => ({
     type: storiesTypes.FETCH_STORIES_ERROR,
 });
 
-const fetchStoriesResult = (data, page, size, totalPages) => ({
+const fetchStoriesResult = (data, page, size, totalPages, type) => ({
     type: storiesTypes.FETCH_STORIES_RESULT,
     payload: {
         data,
         page,
         size,
         totalPages,
+        type
     }
 });

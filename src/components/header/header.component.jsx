@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import './header.styles.css';
 
@@ -10,12 +10,12 @@ const Header = (props) => (
         </Link>
         
         <div className="header-options">
-            <Link className="header-option" to="/new">NEW</Link>
-            <Link className="header-option" to="/top">TOP</Link>
-            <Link className="header-option" to="/best">BEST</Link>
-            <Link className="header-option" to="/job">JOB</Link>
-            <Link className="header-option" to="/show">SHOW</Link>
-            <Link className="header-option" to="/ask">ASK</Link>
+            <NavLink className="header-option" to="/new" activeClassName="header_active">NEW</NavLink>
+            <NavLink className="header-option" to="/top" activeClassName="header_active">TOP</NavLink>
+            <NavLink className="header-option" to="/best" activeClassName="header_active">BEST</NavLink>
+            <NavLink className="header-option" to="/job" activeClassName="header_active">JOB</NavLink>
+            <NavLink className="header-option" to="/show" activeClassName="header_active">SHOW</NavLink>
+            <NavLink className="header-option" to="/ask" activeClassName="header_active">ASK</NavLink>
         </div>
     </div>
 );

@@ -16,20 +16,31 @@ const storyTypeMap = {
 
 class StoriesPage extends Component {
     switchPage = (pageNumber) => {
-        if (pageNumber === this.props.currentPage) return;
-
-        this.props.fetchStories('topstories', pageNumber);
+        const { history } = this.props;
+        history.push(`${history.location.pathname}?page=${pageNumber}`)
     }
 
     componentDidMount() {
-        const storyType = storyTypeMap[this.props.match.path.slice(1)] || storyTypeMap.top; 
-        console.log(storyType);
-        this.props.fetchStories(storyType);
+        const storyType = storyTypeMap[this.props.match.path.slice(1)] || storyTypeMap.top;
+        const params = new URLSearchParams(this.props.history.location.search);
+        const page = Number(params.get('page')) || 1;
+
+        this.props.fetchStories(storyType, page);
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.match.path !== this.props.match.path) {
-            this.props.fetchStories(storyTypeMap[this.props.match.path.slice(1)]);
+        const storyType = storyTypeMap[this.props.match.path.slice(1)] || storyTypeMap.top;
+        const params = new URLSearchParams(this.props.history.location.search);
+        const page = Number(params.get('page')) || 1;
+
+        const prevStoryType = prevProps.storyType;
+        const prevPage = prevProps.currentPage;
+
+        console.log(storyType, page, prevStoryType, prevPage);
+
+        if ((storyType !== prevStoryType || page !== prevPage) && !this.props.loading) {
+            console.log('a');
+            this.props.fetchStories(storyType, page);
         }
     }
 
@@ -41,8 +52,8 @@ class StoriesPage extends Component {
 
         return (
             <div className="storiespage">
-                <Stories stories={stories} startIndex={(currentPage - 1) * pageSize}/>
-                <Paginator min={1} max={totalPages} currentPage={currentPage} onClick={this.switchPage}/>
+                <Stories stories={stories} startIndex={(currentPage - 1) * pageSize} />
+                <Paginator min={1} max={totalPages} currentPage={currentPage} onClick={this.switchPage} />
             </div>
         );
     }
@@ -54,6 +65,7 @@ const mapStateToProps = ({ stories }) => ({
     currentPage: stories.page,
     loading: stories.loading,
     pageSize: stories.size,
+    storyType: stories.type
 });
 
 const mapDispatchToProps = dispatch => ({

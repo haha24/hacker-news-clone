@@ -33,3 +33,7 @@
 .header-option:hover {
     border-bottom: 2px solid white;
 }
+
+.header_active {
+    border-bottom: 2px solid white;
+}
