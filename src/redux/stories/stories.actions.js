@@ -1,28 +1,34 @@
-import storiesTypes from './stories.types';
 import axios from 'axios';
 
-export const fetchStories = (type = 'topstories', page = 1, size = 10) => {
+import storiesTypes from './stories.types';
+import { getPage } from '../utils/utils';
+
+const PAGE_SIZE = 20;
+const DEFAULT_PAGE = 1;
+
+export const fetchStories = (type = 'topstories', page = DEFAULT_PAGE, size = PAGE_SIZE) => {
     return async dispatch => {
         dispatch(fetchStoriesStart(page, type));
         try {
             const response = await axios.get(`https://hacker-news.firebaseio.com/v0/${type}.json`);
             const data = response.data;
-            if (page * size >= data.length) {
-                page = Math.ceil(data.length / size);
-            }
 
-            const start = (page - 1) * size;
-            const end = Math.min((page - 1) * size + size, data.length - 1);
-            const pageData = data.slice(start, end);
+            const pageData = getPage(data, page, size);
 
             const itemRequests = pageData.map(itemId => (
                 axios.get(`https://hacker-news.firebaseio.com/v0/item/${itemId}.json`)
             ));
 
             const itemResponses = await axios.all(itemRequests);
-            const storiesData = itemResponses.map(itemResponse => itemResponse.data);
+            const storiesDataTemp = itemResponses.map(itemResponse => {
+                if (itemResponse.data === null) {
+                    console.log(itemResponse);
+                }
+                return itemResponse.data
+            });
+            const storiesData = storiesDataTemp.filter(story => story !== null);
             const totalPages = Math.ceil(data.length / size);
-            
+
             dispatch(fetchStoriesResult(storiesData, page, size, totalPages, type));
         }
         catch (error) {

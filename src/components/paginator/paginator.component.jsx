@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Page from './page/page.component';
 
@@ -29,6 +30,13 @@ class Paginator extends Component {
             </div>
         );
     }
+}
+
+Paginator.propTypes = {
+    min: PropTypes.number,
+    max: PropTypes.number,
+    currentPage: PropTypes.number,
+    onClick: PropTypes.func,
 }
 
 export default Paginator;

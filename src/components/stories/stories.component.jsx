@@ -8,7 +8,7 @@ const Stories = ({ stories, startIndex = 1 }) => (
     <div>
         {
             stories.map((({ id, ...otherProps }, idx) => (
-                <Story key={id} rank={startIndex + idx + 1} {...otherProps} />
+                <Story key={id} rank={startIndex + idx + 1} id={id} {...otherProps} />
             )))
         }
     </div>

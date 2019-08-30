@@ -1,6 +1,6 @@
 .story {
     display: grid;
-    grid-template-columns: 32px auto;
+    grid-template-columns: 64px auto;
     grid-template-rows: auto;
     grid-template-areas: 
         "story-rank story-title" 
@@ -10,6 +10,7 @@
 
 .story-rank {
     grid-area: story-rank;
+    text-align: right;
     padding: 0 8px;
 }
 
@@ -27,4 +28,8 @@
 
 .story-extra {
     margin: 0 4px;
+}
+
+.story-comments {
+    cursor: pointer;
 }

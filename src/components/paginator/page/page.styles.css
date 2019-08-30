@@ -5,6 +5,7 @@
     border: 1px solid black;
     width: 32px;
     height: 32px;
+    cursor: pointer;
 }
 
 .paginator_page_active {

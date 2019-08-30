@@ -1,0 +1,17 @@
+.comments-story {   
+    padding: 8px;
+}
+
+.comments-story-title {    
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.comments-story-extras {
+    font-size: 0.8rem;
+}
+
+.comments-story-extra {
+    margin: 0 4px;
+}

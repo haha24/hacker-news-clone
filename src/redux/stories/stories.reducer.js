@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     size: 10,
     totalPages: 0,
     loading: false,
-    type: 'topstories'
+    type: 'topstories',
 }
 
 const reducer = (state = INITIAL_STATE, action) => {

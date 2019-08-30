@@ -36,10 +36,7 @@ class StoriesPage extends Component {
         const prevStoryType = prevProps.storyType;
         const prevPage = prevProps.currentPage;
 
-        console.log(storyType, page, prevStoryType, prevPage);
-
         if ((storyType !== prevStoryType || page !== prevPage) && !this.props.loading) {
-            console.log('a');
             this.props.fetchStories(storyType, page);
         }
     }
